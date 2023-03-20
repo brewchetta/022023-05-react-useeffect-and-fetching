@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import RaccoonCard from './RaccoonCard'
 import RaccoonForm from "./RaccoonForm"
 
@@ -15,17 +15,25 @@ const raccoonsData = [
 
 function RaccoonsList() {
 
+  // our array of raccoons
+  const [raccoonsArr, setRaccoonsArr] = useState(raccoonsData)
+
+  function addRaccoon( newRaccoonObject ) {
+    setRaccoonsArr( [ ...raccoonsArr, newRaccoonObject ] )
+  }
+
+  const mappedRaccoons = raccoonsArr.map( raccoon => <RaccoonCard key={raccoon.id} raccoon={raccoon} /> )
+
   return (
     <div className="raccoons-list border-black">
 
       <h2>🦝 Raccoons 🦝</h2>
 
-      <RaccoonForm />
+      <RaccoonForm addRaccoon={addRaccoon} />
 
       <div className="flex">
 
-        {/* Delete the card below and replace it with the mapped raccoons */}
-        <RaccoonCard raccoon={ raccoonsData[0] } />
+        { mappedRaccoons }
 
       </div>
 
