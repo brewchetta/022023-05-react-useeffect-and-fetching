@@ -52,8 +52,16 @@ function RaccoonsList() {
     // this is very important for map keys and for things like a DELETE request
   }
 
+  function deleteRaccoon(id) {
+    fetch( `http://localhost:3002/raccoons/${id}`, { method: "DELETE" } )
+
+    const filteredRaccoons = raccoonsArr.filter( raccoon => id !== raccoon.id )
+
+    setRaccoonsArr( filteredRaccoons )
+  }
+
   // raccoonsArr will change after the fetch and get remapped when it does
-  const mappedRaccoons = raccoonsArr.map( raccoon => <RaccoonCard key={raccoon.id} raccoon={raccoon} /> )
+  const mappedRaccoons = raccoonsArr.map( raccoon => <RaccoonCard key={raccoon.id} raccoon={raccoon} deleteRaccoon={deleteRaccoon} /> )
 
   return (
     <div className="raccoons-list border-black">
